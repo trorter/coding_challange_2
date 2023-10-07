@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-v1
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.pod.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.pod.container.image.repository.name  }}/{{ .Values.pod.container.image.repository.tag  }}:{{ .Values.pod.container.image.version | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.pod.imagePullPolicy | default "Always" }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APP_PROFILE
+              value: {{ .Values.pod.container.env.APP_PROFILE }}
+            - name: APP_LOGGING_LEVEL
+              value: {{ .Values.pod.container.env.APP_LOGGING_LEVEL }}

@@ -1,0 +1,19 @@
+# Service
+service:
+  type: NodePort
+  nodePort: 30011
+#  nodePort: could be skipped. Needed only for "NodePort" type
+
+# Deployment
+pod:
+  replicas: 1
+  container:
+    image:
+      repository:
+        name: code-challenge-2
+        tag: fonoapi-service-mock
+      version: latest
+    env:
+      APP_PROFILE: prod
+      APP_LOGGING_LEVEL: info
+  imagePullPolicy: IfNotPresent

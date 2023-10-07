@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: ${APP_PROFILE:dev}
+
+server:
+  port: ${APP_PORT:8080}
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    info:
+      enabled: true
+
+logging:
+  level:
+    root: ${APP_LOGGING_LEVEL}
+
+feign:
+  clients:
+    externalProductService:
+      url: ${APP_EXTERNAL_PRODUCT_SERVICE_URL}
+    reviewService:
+      url: ${APP_REVIEW_SERVICE_PROTOCOL}://${APP_REVIEW_SERVICE_HOST}:${APP_REVIEW_SERVICE_PORT}/
+
+
+

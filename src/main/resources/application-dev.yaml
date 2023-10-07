@@ -1,0 +1,14 @@
+logging:
+  level:
+    root: INFO
+
+feign:
+  clients:
+    externalProductService:
+      url: https://www.adidas.co.uk/api/
+    reviewService:
+      url: http://localhost:8085/
+
+product:
+  service:
+    deepSearch: true

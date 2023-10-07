@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version "${orgSpringframeworkBootVersion}"
+    id 'io.spring.dependency-management' version "${ioSpringDependencyManagementVersion}"
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+idea {
+    project {
+        languageLevel = javaVersion
+    }
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.springdoc:springdoc-openapi-ui:${springdocOpenapiUiVersion}"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudStarterOpenfeignVersion}"
+
+    testCompileOnly 'org.projectlombok:lombok'
+
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'junit:junit'
+    testImplementation 'org.junit.vintage:junit-vintage-engine'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.assertj:assertj-core'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootJar {
+    archiveFileName = 'phone-booking-service.jar'
+}
+
+springBoot {
+    mainClass = 'an.y.ledov.coding.challenge.phone.booking.PhoneBookingApp'
+}
+
+

@@ -21,29 +21,46 @@ idea {
     }
 }
 
+tasks.register('buildDockerImage', Exec) {
+    dependsOn 'build'
+
+    workingDir = project.rootDir
+    executable = 'docker'
+    args = [
+            'build',
+            '-t',
+            "${repositoryName}/${imageName}:${imageVersion}",
+            '.'
+    ]
+}
+
+// in future this task can be used/adjusted to push image to the cloud registry
+tasks.register('pushDockerImage', Exec) {
+    dependsOn 'buildDockerImage'
+
+    workingDir = project.rootDir
+    executable = 'docker'
+    args = [
+            'push',
+            "${repositoryName}/${imageName}:${imageVersion}"
+    ]
+}
+
 dependencies {
     compileOnly 'org.projectlombok:lombok'
 
     annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation "org.springdoc:springdoc-openapi-ui:${springdocOpenapiUiVersion}"
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    implementation "org.springframework.cloud:spring-cloud-starter-openfeign:${springCloudStarterOpenfeignVersion}"
-
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
-
-    testCompileOnly 'org.projectlombok:lombok'
+    implementation "org.springdoc:springdoc-openapi-ui:${springdocOpenapiUiVersion}"
 
     testAnnotationProcessor 'org.projectlombok:lombok'
-    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    testCompileOnly 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit'
@@ -57,11 +74,9 @@ test {
 }
 
 bootJar {
-    archiveFileName = 'phone-service.jar'
+    archiveFileName = 'fonoapi-service-mock.jar'
 }
 
 springBoot {
-    mainClass = 'an.y.ledov.coding.challenge.phone.PhoneApp'
+    mainClass = 'an.y.ledov.mock.FonoapiMockApp'
 }
-
-

@@ -1,12 +1,9 @@
 spring:
   profiles:
     active: ${APP_PROFILE:dev}
-  mongodb:
-    embedded:
-      version: 4.0.2
 
 server:
-  port: ${APP_PORT}
+  port: 8080
 
 management:
   endpoint:
@@ -20,11 +17,3 @@ management:
 logging:
   level:
     root: ${APP_LOGGING_LEVEL}
-
-feign:
-  clients:
-    fonoapi: ${APP_EXTERNAL_PRODUCT_SERVICE_URL}
-
-
-
-

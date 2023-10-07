@@ -2,13 +2,10 @@ logging:
   level:
     root: INFO
 
+server:
+  port: 8080
+
 feign:
   clients:
-    externalProductService:
-      url: https://www.adidas.co.uk/api/
-    reviewService:
-      url: http://localhost:8085/
+    fonoapi: https://fonoapi.freshpixl.com/v1/
 
-product:
-  service:
-    deepSearch: true

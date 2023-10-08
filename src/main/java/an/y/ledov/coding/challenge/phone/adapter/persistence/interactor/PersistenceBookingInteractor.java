@@ -33,7 +33,7 @@ public class PersistenceBookingInteractor implements PersistenceBookingService {
             .map(bookingMapper::toBooking);
     }
 
-    public Booking bookEntity(
+    public Booking save(
             String entityId,
             EntityType entityType,
             LocalDateTime bookingTime,
@@ -47,5 +47,14 @@ public class PersistenceBookingInteractor implements PersistenceBookingService {
             .build();
 
         return bookingMapper.toBooking(bookingRepository.save(booking));
+    }
+
+    public Optional<Booking> findById(String bookingId) {
+        return bookingRepository.findById(bookingId)
+            .map(bookingMapper::toBooking);
+    }
+
+    public void deleteById(String bookingId) {
+        bookingRepository.deleteById(bookingId);
     }
 }

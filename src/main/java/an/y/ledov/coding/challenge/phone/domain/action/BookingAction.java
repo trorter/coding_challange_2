@@ -2,8 +2,10 @@ package an.y.ledov.coding.challenge.phone.domain.action;
 
 import an.y.ledov.coding.challenge.phone.domain.model.ActionStatus;
 import an.y.ledov.coding.challenge.phone.domain.model.booking.Booking;
-import an.y.ledov.coding.challenge.phone.domain.model.booking.CreateBookingRequest;
-import an.y.ledov.coding.challenge.phone.domain.model.booking.CreateBookingResult;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.request.CancelBookingRequest;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.request.CreateBookingRequest;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.result.BasicBookingResult;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.result.CreateBookingResult;
 import an.y.ledov.coding.challenge.phone.domain.model.EntityType;
 import an.y.ledov.coding.challenge.phone.domain.service.PersistenceBookingService;
 import an.y.ledov.coding.challenge.phone.domain.validation.BookingValidator;
@@ -23,7 +25,7 @@ public class BookingAction {
 
     private final PersistenceBookingService persistenceBookingService;
 
-    public Optional<Booking> getBookingByEntityIdAndType(
+    public Optional<Booking> getByEntityIdAndType(
         String id,
         EntityType entityType) {
 
@@ -31,9 +33,13 @@ public class BookingAction {
 
     }
 
-    public CreateBookingResult createBooking(CreateBookingRequest createBookingRequest) {
+    public Optional<Booking> getById(String id) {
+        return persistenceBookingService.findById(id);
+    }
 
-        var validationResult = bookingValidator.validateBookingRequest(createBookingRequest);
+    public CreateBookingResult create(CreateBookingRequest createBookingRequest) {
+
+        var validationResult = bookingValidator.validateCreateRequest(createBookingRequest);
         if (!validationResult.isSuccess()) {
             return CreateBookingResult.builder()
                 .status(validationResult.getStatus())
@@ -58,7 +64,7 @@ public class BookingAction {
                         .build();
                 }
 
-                var newBooking = bookingService.bookEntity(
+                var newBooking = bookingService.save(
                     request.getEntityId(),
                     request.getEntityType(),
                     LocalDateTime.now(),
@@ -67,6 +73,38 @@ public class BookingAction {
                 return CreateBookingResult.builder()
                     .status(ActionStatus.SUCCESS)
                     .booking(newBooking)
+                    .build();
+            });
+    }
+
+    public BasicBookingResult cancel(CancelBookingRequest cancelBookingRequest) {
+
+        var validationResult = bookingValidator.validateCancelRequest(cancelBookingRequest);
+        if (!validationResult.isSuccess()) {
+            return BasicBookingResult.builder()
+                .status(validationResult.getStatus())
+                .message(validationResult.getMessages().stream().reduce((a, b) -> a + "; " + b).orElse(""))
+                .build();
+        }
+
+        var phone = getById(cancelBookingRequest.getBookingId());
+        if (phone.isEmpty()) {
+            return BasicBookingResult.builder()
+                .status(ActionStatus.FAILURE)
+                .message(BookingValidator.BOOKING_NOT_FOUND)
+                .build();
+        }
+
+        return lockAction.withLock(
+            cancelBookingRequest.getEntityId(),
+            persistenceBookingService,
+            cancelBookingRequest,
+            (bookingService, request) -> {
+
+                bookingService.deleteById(request.getBookingId());
+
+                return CreateBookingResult.builder()
+                    .status(ActionStatus.SUCCESS)
                     .build();
             });
     }

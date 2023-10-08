@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PersistencePhoneService {
 
-    Optional<Phone> getPhoneById(String id);
+    Optional<Phone> getById(String id);
 
     List<Phone> getAll();
 

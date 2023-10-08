@@ -25,8 +25,8 @@ public class RestPhoneInteractor {
 
     private final BookingMapper bookingMapper;
 
-    public ResponseEntity<Object> getPhoneById(String id) {
-        var getPhone = phoneAction.getPhoneById(id);
+    public ResponseEntity<Object> getById(String id) {
+        var getPhone = phoneAction.getById(id);
 
         if (getPhone.isEmpty()) {
             return ResponseEntity
@@ -36,7 +36,7 @@ public class RestPhoneInteractor {
                     .build());
         }
 
-        var getBooking = bookingAction.getBookingByEntityIdAndType(id, EntityType.PHONE);
+        var getBooking = bookingAction.getByEntityIdAndType(id, EntityType.PHONE);
 
         var result = phoneMapper.toPhoneWithBooking(getPhone.get());
         result.setAvailableForBooking(getBooking.isEmpty());
@@ -51,7 +51,7 @@ public class RestPhoneInteractor {
             .toList();
 
         phones.forEach(phone -> phone.setAvailableForBooking(
-            bookingAction.getBookingByEntityIdAndType(phone.getId(), EntityType.PHONE).isEmpty()));
+            bookingAction.getByEntityIdAndType(phone.getId(), EntityType.PHONE).isEmpty()));
 
         return ResponseEntity.ok(phones);
     }

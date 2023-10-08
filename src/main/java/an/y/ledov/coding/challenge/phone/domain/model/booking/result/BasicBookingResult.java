@@ -1,21 +1,19 @@
-package an.y.ledov.coding.challenge.phone.domain.model.booking;
+package an.y.ledov.coding.challenge.phone.domain.model.booking.result;
 
 import an.y.ledov.coding.challenge.phone.domain.model.ActionStatus;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
-public class CreateBookingResult {
+@SuperBuilder
+public class BasicBookingResult {
 
     @NotNull
-    private ActionStatus status;
+    protected ActionStatus status;
 
-    private String message;
-
-    private Booking booking;
+    protected String message;
 
     public boolean isSuccess() {
         return ActionStatus.SUCCESS.equals(status);

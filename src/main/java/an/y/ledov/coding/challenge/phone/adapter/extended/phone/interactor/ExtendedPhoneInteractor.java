@@ -20,7 +20,7 @@ public class ExtendedPhoneInteractor implements ExtendedPhoneService {
 
     private final FonoapiServiceClient fonoapiServiceClient;
 
-    public Optional<Phone.ExtendedParams> getExtendedInformation(String name) {
+    public Optional<Phone.ExtendedParams> getInformation(String name) {
         try {
             var token = fonoapiServiceClient.getToken();
             log.info("Token received: {}", token);

@@ -18,7 +18,7 @@ public class PersistencePhoneInteractor implements PersistencePhoneService {
 
     private final PhoneMapper phoneMapper;
 
-    public Optional<Phone> getPhoneById(String id) {
+    public Optional<Phone> getById(String id) {
         return phoneRepository.findById(id)
             .map(phoneMapper::toPhone);
     }

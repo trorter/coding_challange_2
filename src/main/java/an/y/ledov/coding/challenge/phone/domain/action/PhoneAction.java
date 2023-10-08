@@ -19,9 +19,9 @@ public class PhoneAction {
 
     private final ExtendedPhoneService extendedPhoneService;
 
-    public Optional<Phone> getPhoneById(String id) {
+    public Optional<Phone> getById(String id) {
 
-        var getPhone = persistencePhoneService.getPhoneById(id);
+        var getPhone = persistencePhoneService.getById(id);
 
         if (getPhone.isEmpty()) {
             log.info("Phone with id {} not found", id);
@@ -30,7 +30,7 @@ public class PhoneAction {
         }
 
         return getPhone.map(phone -> {
-            extendedPhoneService.getExtendedInformation(phone.getName())
+            extendedPhoneService.getInformation(phone.getName())
                 .ifPresent(phone::setExtendedParams);
             return phone;
         });

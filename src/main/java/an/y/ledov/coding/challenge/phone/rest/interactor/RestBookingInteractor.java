@@ -1,7 +1,8 @@
 package an.y.ledov.coding.challenge.phone.rest.interactor;
 
 import an.y.ledov.coding.challenge.phone.domain.action.BookingAction;
-import an.y.ledov.coding.challenge.phone.domain.model.booking.CreateBookingRequest;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.request.CancelBookingRequest;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.request.CreateBookingRequest;
 import an.y.ledov.coding.challenge.phone.domain.model.EntityType;
 import an.y.ledov.coding.challenge.phone.mapping.BookingMapper;
 import an.y.ledov.coding.challenge.phone.rest.dto.RestErrorResponse;
@@ -24,7 +25,7 @@ public class RestBookingInteractor {
         String phoneId,
         RestCreateBooking bookingInfo) {
 
-        var result = bookingAction.createBooking(
+        var result = bookingAction.create(
             CreateBookingRequest.builder()
                 .entityId(phoneId)
                 .entityType(EntityType.PHONE)
@@ -34,6 +35,24 @@ public class RestBookingInteractor {
         return result.isSuccess()
             ? ResponseEntity.ok().body(bookingMapper.toRestBooking(result.getBooking()))
             : ResponseEntity.badRequest().body(RestErrorResponse.builder()
+            .errorMessage(result.getMessage())
+            .build());
+    }
+
+    public ResponseEntity<Object> cancel(
+        String phoneId,
+        String bookingId) {
+
+        var result = bookingAction.cancel(CancelBookingRequest.builder()
+            .bookingId(bookingId)
+            .entityId(phoneId)
+            .entityType(EntityType.PHONE)
+            .build());
+
+        return result.isSuccess()
+            ? ResponseEntity.ok().build()
+            : ResponseEntity.badRequest()
+                .body(RestErrorResponse.builder()
                 .errorMessage(result.getMessage())
                 .build());
     }

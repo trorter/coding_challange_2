@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface ExtendedPhoneService {
 
-    Optional<Phone.ExtendedParams> getExtendedInformation(String name);
+    Optional<Phone.ExtendedParams> getInformation(String name);
 
 }

@@ -40,12 +40,12 @@ public class PhoneController {
         description = "The phone with the given ID was not found",
         content = @Content(schema = @Schema(implementation = RestErrorResponse.class),
             mediaType = MediaType.APPLICATION_JSON_VALUE))
-    public ResponseEntity<Object> getPhoneById(
+    public ResponseEntity<Object> getById(
         @PathVariable String id) {
 
         log.debug("Get phone by ID {}", id);
 
-        var result = restPhoneInteractor.getPhoneById(id);
+        var result = restPhoneInteractor.getById(id);
 
         log.debug("Get phone by ID {} result is {}", id, result);
 

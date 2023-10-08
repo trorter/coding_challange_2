@@ -12,10 +12,13 @@ public interface PersistenceBookingService {
         String entityId,
         EntityType entityType);
 
-    Booking bookEntity(
+    Booking save(
         String entityId,
         EntityType entityType,
         LocalDateTime bookingTime,
         String personName);
 
+    Optional<Booking> findById(String bookingId);
+
+    void deleteById(String bookingId);
 }

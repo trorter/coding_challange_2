@@ -77,4 +77,5 @@ In that case the locking problem can be solved by using optimistic locking (@Ver
     - Pros: we can have a history of bookings for the phone, phone entity will not be affected by the booking history
 
 So, as a conclusion, I would say that the solution where the booking is a separate entity is more flexible and scalable.
-But it requires more efforts to implement it and the distributed locking is a must.
+But it requires more efforts to implement it and the distributed locking is a must. And the better approach for booking 
+is to move to the event sourcing architecture and do not delete the booking records.

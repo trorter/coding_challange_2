@@ -1,8 +1,9 @@
 package an.y.ledov.coding.challenge.phone.rest;
 
 import an.y.ledov.coding.challenge.phone.rest.dto.RestErrorResponse;
-import an.y.ledov.coding.challenge.phone.rest.dto.RestPhone;
-import an.y.ledov.coding.challenge.phone.rest.dto.RestPhoneWithBooking;
+import an.y.ledov.coding.challenge.phone.rest.dto.phone.RestPhoneShort;
+import an.y.ledov.coding.challenge.phone.rest.dto.phone.RestPhone;
+import an.y.ledov.coding.challenge.phone.rest.interactor.RestPhoneInteractor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,7 +34,7 @@ public class PhoneController {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponse(responseCode = "200",
         description = "Phone was successfully retrieved",
-        content = @Content(schema = @Schema(implementation = RestPhoneWithBooking.class),
+        content = @Content(schema = @Schema(implementation = RestPhone.class),
             mediaType = MediaType.APPLICATION_JSON_VALUE))
     @ApiResponse(responseCode = "404",
         description = "The phone with the given ID was not found",
@@ -57,7 +58,7 @@ public class PhoneController {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponse(responseCode = "200",
         description = "Phone was successfully retrieved",
-        content = @Content(array = @ArraySchema(schema = @Schema(implementation = RestPhone.class)),
+        content = @Content(array = @ArraySchema(schema = @Schema(implementation = RestPhoneShort.class)),
             mediaType = MediaType.APPLICATION_JSON_VALUE))
     public ResponseEntity<Object> getAll() {
 

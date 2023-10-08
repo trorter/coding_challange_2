@@ -1,4 +1,4 @@
-package an.y.ledov.coding.challenge.phone.rest;
+package an.y.ledov.coding.challenge.phone.rest.interactor;
 
 import an.y.ledov.coding.challenge.phone.domain.action.BookingAction;
 import an.y.ledov.coding.challenge.phone.domain.action.PhoneAction;

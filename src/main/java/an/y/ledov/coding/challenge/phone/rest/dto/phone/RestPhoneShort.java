@@ -1,4 +1,4 @@
-package an.y.ledov.coding.challenge.phone.rest.dto;
+package an.y.ledov.coding.challenge.phone.rest.dto.phone;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(name = "Phone")
-public class RestPhone {
+@Schema(name = "PhoneShort")
+public class RestPhoneShort {
 
     @NotNull
     private String id;

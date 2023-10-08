@@ -1,8 +1,8 @@
 package an.y.ledov.coding.challenge.phone.mapping;
 
 import an.y.ledov.coding.challenge.phone.adapter.persistence.model.Bookings;
-import an.y.ledov.coding.challenge.phone.domain.model.Booking;
-import an.y.ledov.coding.challenge.phone.rest.dto.RestBooking;
+import an.y.ledov.coding.challenge.phone.domain.model.booking.Booking;
+import an.y.ledov.coding.challenge.phone.rest.dto.booking.RestBooking;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;

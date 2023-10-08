@@ -1,3 +1,13 @@
+# About #
+
+This is a mock for the fonoapi service. 
+It is used for testing purposes.
+The main mocking services are:
+- generate token
+- get devices
+
+# Launching #
+
 ## Docker ##
 - login to the docker registry:
 ``` 

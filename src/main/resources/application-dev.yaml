@@ -7,5 +7,5 @@ server:
 
 feign:
   clients:
-    fonoapi: https://fonoapi.freshpixl.com/v1/
+    fonoapi: http://localhost:30011/
 

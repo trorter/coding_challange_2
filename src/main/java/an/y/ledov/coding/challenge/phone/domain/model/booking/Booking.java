@@ -1,10 +1,8 @@
-package an.y.ledov.coding.challenge.phone.rest.dto;
+package an.y.ledov.coding.challenge.phone.domain.model.booking;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
+import an.y.ledov.coding.challenge.phone.rest.dto.RestEntityType;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,10 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Schema(name = "Booking")
-public class RestBooking {
+public class Booking {
 
     @NotNull
     private String id;

@@ -19,7 +19,7 @@ docker login -u <username> -p <password> <registry>
 ```
 ./gradlew buildDockerImage
 ```
-- push the image to the repo (not required
+- push the image to the repo (not required for the local deployment in K8s):
 ```
 ./gradlew pushDockerImage
 ```
